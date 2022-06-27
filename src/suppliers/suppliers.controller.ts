@@ -14,7 +14,9 @@ import { SuppliersService } from './suppliers.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
 import { PaginationDTO } from '../common/dtos';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Supplier')
 @Controller('suppliers')
 export class SuppliersController {
   constructor(private readonly suppliersService: SuppliersService) {}
