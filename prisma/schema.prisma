@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id    String @id @default(cuid())
+  sku   String
+  sn    String
+  stock Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  PurchaseOrder PurchaseOrder[]
+  SalesOrder    SalesOrder[]
+
+  @@map("products")
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  idNumber  String   @map("id_number")
+  idType    String   @map("id_type")
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  SalesOrder SalesOrder[]
+
+  @@map("clients")
+}
+
+model Supplier {
+  id        String   @id @default(cuid())
+  idNumber  String   @map("id_number")
+  idType    String   @map("id_type")
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  PurchaseOrder PurchaseOrder[]
+
+  @@map("suppliers")
+}
+
+model PurchaseOrder {
+  id        String   @id @default(cuid())
+  qty       Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  supplierId String   @map("supplier_id")
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  String   @map("product_id")
+
+  @@map("purchase_orders")
+}
+
+model SalesOrder {
+  id        String   @id @default(cuid())
+  qty       Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  client    Client  @relation(fields: [clientId], references: [id])
+  clientId  String  @map("client_id")
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @map("product_id")
+
+  @@map("sales_orders")
+}

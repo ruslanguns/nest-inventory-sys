@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+/data/*
+!data/.gitkeep
+
 # Logs
 logs
 *.log
