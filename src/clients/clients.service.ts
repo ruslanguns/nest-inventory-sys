@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateClientDto } from './dto/create-client.dto';
-import { PaginationDTO } from './dto/pagination.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { PaginationDTO } from '../common/dtos';
 
 @Injectable()
 export class ClientsService {
