@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
-import { PaginationDTO } from './dto/pagination.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { PaginationDTO } from '../common/dtos';
 
 @Controller('clients')
 export class ClientsController {
