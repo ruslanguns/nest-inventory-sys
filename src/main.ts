@@ -1,11 +1,16 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { SwaggerModule } from '@nestjs/swagger';
+import openAPIConfig from './config/open-api.config';
 
 async function bootstrap() {
   const port = process.env.PORT || 3000;
   const app = await NestFactory.create(AppModule);
   const logger = new Logger('Inventory SYS');
+
+  const { createDocument } = SwaggerModule;
+  SwaggerModule.setup('api', app, createDocument(app, openAPIConfig));
 
   app.useGlobalPipes(
     new ValidationPipe({
