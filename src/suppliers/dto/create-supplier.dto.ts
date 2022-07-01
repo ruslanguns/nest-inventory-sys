@@ -1,17 +1,17 @@
 import { IsEnum, IsString, Length } from 'class-validator';
 
-export enum ClientType {
+export enum SupplierType {
   CIF = 'CIF',
   NIF = 'NIF',
   RUC = 'RUC',
 }
 
-export class CreateClientDto {
+export class CreateSupplierDto {
   @IsString()
   @Length(4, 20)
   idNumber: string;
 
-  @IsEnum(ClientType)
+  @IsEnum(SupplierType)
   idType: string;
 
   @IsString()

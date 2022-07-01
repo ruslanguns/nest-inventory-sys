@@ -12,13 +12,22 @@ import {
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
-import { PaginationDTO } from './dto/pagination.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { PaginationDTO } from '../common/dtos';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Clients')
 @Controller('clients')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
+  /**
+   * Method to create a new client
+   * @param createClientDto Schema to be used to create a Client
+   *
+   * Visit my GitHub profile to see the code:
+   * [@ruslanguns](https://github.com/ruslanguns)
+   */
   @Post()
   async create(@Body() createClientDto: CreateClientDto) {
     return await this.clientsService.create(createClientDto);
