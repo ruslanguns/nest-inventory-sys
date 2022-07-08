@@ -12,7 +12,8 @@ datasource db {
 
 model Product {
   id    String @id @default(cuid())
-  sku   String
+  name  String
+  sku   String @unique
   sn    String
   stock Int
 
