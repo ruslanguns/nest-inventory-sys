@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -52,15 +53,16 @@ model Supplier {
 }
 
 model PurchaseOrder {
-  id        String   @id @default(cuid())
-  qty       Int
+  id         String @id @default(cuid())
+  qty        Int
+  supplierId String @map("supplier_id")
+  productId  String @map("product_id")
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  supplier   Supplier @relation(fields: [supplierId], references: [id])
-  supplierId String   @map("supplier_id")
-  product    Product  @relation(fields: [productId], references: [id])
-  productId  String   @map("product_id")
+  supplier Supplier @relation(fields: [supplierId], references: [id])
+  product  Product  @relation(fields: [productId], references: [id])
 
   @@map("purchase_orders")
 }
